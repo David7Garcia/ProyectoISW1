@@ -9,7 +9,7 @@ public class Main {
 		Login log = new Login();
 		log.setVisible(true);
 
-		System.out.println("El cambio se realizo");
+		System.out.println("No se que pasa");
 		
 	}
 
