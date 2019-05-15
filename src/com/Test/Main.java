@@ -8,9 +8,6 @@ public class Main {
 
 		Login log = new Login();
 		log.setVisible(true);
-
-		System.out.println("No se que pasa");
-		
 	}
 
 }
