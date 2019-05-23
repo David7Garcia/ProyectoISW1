@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import com.domain.ClienteFrecuente;
 import com.domain.Usuario;
 
 
@@ -59,7 +60,7 @@ public class DataConnectionUser {
 	
 	public ArrayList<Usuario> retornaUsuarioM(Integer DocumentoIdentidad) throws SQLException{
 		ArrayList<Usuario> ls = new ArrayList<Usuario>();
-		PreparedStatement ps = con.prepareStatement("SELECT * FROM Usuario WHERE DocumentoIdentidad = ?");
+		PreparedStatement ps = con.prepareStatement("CALL consulta_usuario(?)");
 		ps.setInt(1, DocumentoIdentidad);
 		ResultSet rs = ps.executeQuery();
 		while(rs.next()){
@@ -72,7 +73,7 @@ public class DataConnectionUser {
 	}
 
 	public void insertaUsuario(int Id, String Nombre, String Cargo, String Contraseña, int DocumentoIdentidad) throws SQLException {
-		String Insert = "INSERT INTO `usuario` (`Id`,`Nombre`,`Cargo`,`Contraseña`,`DocumentoIdentidad`)VALUES (?,?,?,?,?)";
+		String Insert = "CALL insertar_usuario(?,?,?,?,?)";
 		PreparedStatement ps = con.prepareStatement(Insert);
 		ps.setInt(1, Id); 
 		ps.setString(2, Nombre);
@@ -84,7 +85,7 @@ public class DataConnectionUser {
 	}
 	public void editaUsuario(int Id, String NuevoNombre,String NuevoCargo, int DocumentoIdentidad ) throws SQLException {
 		JOptionPane.showMessageDialog(null, "Modificacion Realizada Con Exito");
-		String Update = "UPDATE `usuario` SET `Id` = ?,`Nombre`=?,`Cargo`=? WHERE `DocumentoIdentidad` =?";
+		String Update = "CALL update_usuario(?,?,?,?)";
 		PreparedStatement ps = con.prepareStatement(Update);
 		ps.setInt(1, Id); //es respuesta al primer interogant
 		ps.setString(2, NuevoNombre); //es respuesta al segundo interogante
@@ -94,10 +95,58 @@ public class DataConnectionUser {
 		ps.executeUpdate();
 	}
 	
-	public void eliminaUsuario(int numlic) throws SQLException {
-		String seleccio = "DELETE FROM `atleta` WHERE `numllicencia` = ?";
+	public void eliminaUsuario(int documentoIdentidad) throws SQLException {
+		String seleccio = "CALL delete_usuario(?)";
 		PreparedStatement ps = con.prepareStatement(seleccio);
-		ps.setInt(1, numlic);
+		ps.setInt(1, documentoIdentidad);
+		ps.executeUpdate();
+		JOptionPane.showMessageDialog(null, "Usuario eliminado Exitosamente");
+	}
+	
+	
+	public ArrayList<ClienteFrecuente> retornaCliente(Integer DocumentoIdentidad) throws SQLException{
+		ArrayList<ClienteFrecuente> ls = new ArrayList<ClienteFrecuente>();
+		PreparedStatement ps = con.prepareStatement("CALL consulta_usuario(?)");
+		ps.setInt(1, DocumentoIdentidad);
+		ResultSet rs = ps.executeQuery();
+		while(rs.next()){
+			ClienteFrecuente a = new ClienteFrecuente(rs.getString("Nombre"), rs.getInt("DocumentoIdentidad"),rs.getInt("puntos"));
+			
+			ls.add(a);
+		}
+		rs.close();
+		return ls;
+	}
+
+	public void insertaCliente(int Id, String Nombre, String Cargo, String Contraseña, int DocumentoIdentidad) throws SQLException {
+		String Insert = "CALL insertar_usuario(?,?,?,?,?)";
+		PreparedStatement ps = con.prepareStatement(Insert);
+		ps.setInt(1, Id); 
+		ps.setString(2, Nombre);
+		ps.setString(3, Cargo);
+		ps.setString(4, Contraseña);
+		ps.setInt(5, DocumentoIdentidad);
+		ps.executeUpdate();
+		JOptionPane.showMessageDialog(null, "Usuario Guardado con Exito");
+	}
+	public void editaCliente(int Id, String NuevoNombre,String NuevoCargo, int DocumentoIdentidad ) throws SQLException {
+		JOptionPane.showMessageDialog(null, "Modificacion Realizada Con Exito");
+		String Update = "CALL update_usuario(?,?,?,?)";
+		PreparedStatement ps = con.prepareStatement(Update);
+		ps.setInt(1, Id); //es respuesta al primer interogant
+		ps.setString(2, NuevoNombre); //es respuesta al segundo interogante
+		ps.setString(3, NuevoCargo); //es respuesta al tercer interogant
+		ps.setInt(4, DocumentoIdentidad); //es respuesta al cuarto interogant
+		
 		ps.executeUpdate();
 	}
+	
+	public void eliminaCliente(int documentoIdentidad) throws SQLException {
+		String seleccio = "CALL delete_usuario(?)";
+		PreparedStatement ps = con.prepareStatement(seleccio);
+		ps.setInt(1, documentoIdentidad);
+		ps.executeUpdate();
+		JOptionPane.showMessageDialog(null, "Usuario eliminado Exitosamente");
+	}
+
 }

@@ -8,10 +8,10 @@ public class ClienteFrecuente {
 	int puntos;
 	
 	
-	public ClienteFrecuente(String nombre, Short documentoDeIdentidad, int puntos) {
+	public ClienteFrecuente(String nombre, int documento, int puntos) {
 		super();
 		this.nombre = nombre;
-		this.documentoDeIdentidad = documentoDeIdentidad;
+		this.documentoDeIdentidad = documento;
 		this.puntos = puntos;
 	}
 	
