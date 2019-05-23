@@ -9,14 +9,15 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import com.domain.ClienteFrecuente;
+import com.domain.Proveedor;
 import com.domain.Usuario;
 
 
-public class DataConnectionUser {
+public class DataConnectionCrud {
 	
 	public static Connection con;
 	
-	public DataConnectionUser(){
+	public DataConnectionCrud(){
 		performConnection();
 	}
 	
@@ -102,11 +103,23 @@ public class DataConnectionUser {
 		ps.executeUpdate();
 		JOptionPane.showMessageDialog(null, "Usuario eliminado Exitosamente");
 	}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	public ArrayList<ClienteFrecuente> retornaCliente() throws SQLException{
+		ArrayList<ClienteFrecuente> lsc = new ArrayList<ClienteFrecuente>();
+		PreparedStatement ps = con.prepareStatement("SELECT * FROM cliente ORDER BY DocumentoIdentidad");
+		ResultSet rs = ps.executeQuery();
+		while(rs.next()){
+			ClienteFrecuente a = new ClienteFrecuente(rs.getString("Nombre"), rs.getInt("DocumentoIdentidad"),rs.getInt("puntos"));
+			lsc.add(a);
+		}
+		rs.close();
+		return lsc;
+	}
+	 
 	
-	
-	public ArrayList<ClienteFrecuente> retornaCliente(Integer DocumentoIdentidad) throws SQLException{
+	public ArrayList<ClienteFrecuente> retornaClienteM(Integer DocumentoIdentidad) throws SQLException{
 		ArrayList<ClienteFrecuente> ls = new ArrayList<ClienteFrecuente>();
-		PreparedStatement ps = con.prepareStatement("CALL consulta_usuario(?)");
+		PreparedStatement ps = con.prepareStatement("CALL consulta_cliente(?)");
 		ps.setInt(1, DocumentoIdentidad);
 		ResultSet rs = ps.executeQuery();
 		while(rs.next()){
@@ -118,35 +131,91 @@ public class DataConnectionUser {
 		return ls;
 	}
 
-	public void insertaCliente(int Id, String Nombre, String Cargo, String Contraseña, int DocumentoIdentidad) throws SQLException {
-		String Insert = "CALL insertar_usuario(?,?,?,?,?)";
+	public void insertaCliente(String Nombre, int DocumentoIdentidad) throws SQLException {
+		String Insert = "CALL ingresar_cliente(?,?)";
 		PreparedStatement ps = con.prepareStatement(Insert);
-		ps.setInt(1, Id); 
-		ps.setString(2, Nombre);
-		ps.setString(3, Cargo);
-		ps.setString(4, Contraseña);
-		ps.setInt(5, DocumentoIdentidad);
+		ps.setString(1, Nombre);
+		ps.setInt(2, DocumentoIdentidad);
 		ps.executeUpdate();
-		JOptionPane.showMessageDialog(null, "Usuario Guardado con Exito");
+		JOptionPane.showMessageDialog(null, "Cliente Guardado con Exito");
 	}
-	public void editaCliente(int Id, String NuevoNombre,String NuevoCargo, int DocumentoIdentidad ) throws SQLException {
+	public void editaCliente(String NuevoNombre,int DocumentoIdentidad ) throws SQLException {
 		JOptionPane.showMessageDialog(null, "Modificacion Realizada Con Exito");
 		String Update = "CALL update_usuario(?,?,?,?)";
 		PreparedStatement ps = con.prepareStatement(Update);
-		ps.setInt(1, Id); //es respuesta al primer interogant
-		ps.setString(2, NuevoNombre); //es respuesta al segundo interogante
-		ps.setString(3, NuevoCargo); //es respuesta al tercer interogant
-		ps.setInt(4, DocumentoIdentidad); //es respuesta al cuarto interogant
+		ps.setString(1, NuevoNombre); //es respuesta al segundo interogante
+		ps.setInt(2, DocumentoIdentidad); //es respuesta al cuarto interogant
 		
 		ps.executeUpdate();
 	}
 	
 	public void eliminaCliente(int documentoIdentidad) throws SQLException {
-		String seleccio = "CALL delete_usuario(?)";
+		String seleccio = "CALL delete_cliente(?)";
 		PreparedStatement ps = con.prepareStatement(seleccio);
 		ps.setInt(1, documentoIdentidad);
 		ps.executeUpdate();
-		JOptionPane.showMessageDialog(null, "Usuario eliminado Exitosamente");
+		JOptionPane.showMessageDialog(null, "Cliente eliminado Exitosamente");
+	}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	public ArrayList<Proveedor> retornaProveedor() throws SQLException{
+		ArrayList<Proveedor> lsp = new ArrayList<Proveedor>();
+		PreparedStatement ps = con.prepareStatement("SELECT * FROM Proveedor ORDER BY NumeroRegistro");
+		ResultSet rs = ps.executeQuery();
+		while(rs.next()){
+			Proveedor a = new Proveedor(rs.getInt("nit"),rs.getString("Nombre"),rs.getString("Contacto"),rs.getString("Direccion"), rs.getInt("Telefono"));
+			lsp.add(a);
+		}
+		rs.close();
+		return lsp;
+	}
+	 
+	
+	public ArrayList<Proveedor> retornaProveedorM(Integer DocumentoIdentidad) throws SQLException{
+		ArrayList<Proveedor> ls = new ArrayList<Proveedor>();
+		PreparedStatement ps = con.prepareStatement("CALL consulta_Proveedor(?)");
+		ps.setInt(1, DocumentoIdentidad);
+		ResultSet rs = ps.executeQuery();
+		while(rs.next()){
+			Proveedor a = new Proveedor(rs.getInt("nit"),rs.getString("Nombre"),rs.getString("Contacto"),rs.getString("Direccion"), rs.getInt("Telefono"));
+			
+			ls.add(a);
+		}
+		rs.close();
+		return ls;
 	}
 
+	public void insertaProveedor(int nit,String Nombre,String Contacto,String Direccion, int Telefono) throws SQLException {
+		String Insert = "CALL ingresar_Proveedor(?,?,?,?,?)";
+		PreparedStatement ps = con.prepareStatement(Insert);
+		ps.setInt(1, nit);
+		ps.setString(2, Nombre);
+		ps.setString(3, Contacto);
+		ps.setString(4, Direccion);
+		ps.setInt(5, Telefono);
+		
+		ps.executeUpdate();
+		JOptionPane.showMessageDialog(null, "Cliente Guardado con Exito");
+	}
+	public void editaProveedor(String Nombre,String Contacto,String Direccion, int Telefono ) throws SQLException {
+		JOptionPane.showMessageDialog(null, "Modificacion Realizada Con Exito");
+		String Update = "CALL update_usuario(?,?,?,?)";
+		PreparedStatement ps = con.prepareStatement(Update);
+		ps.setString(1, Nombre);
+		ps.setString(2, Contacto);
+		ps.setString(3, Direccion);
+		ps.setInt(4, Telefono);
+		
+		ps.executeUpdate();
+	}
+	
+	public void eliminaProveedor(int documentoIdentidad) throws SQLException {
+		String seleccio = "CALL delete_cliente(?)";
+		PreparedStatement ps = con.prepareStatement(seleccio);
+		ps.setInt(1, documentoIdentidad);
+		ps.executeUpdate();
+		JOptionPane.showMessageDialog(null, "Cliente eliminado Exitosamente");
+	}
+
+
+	
 }

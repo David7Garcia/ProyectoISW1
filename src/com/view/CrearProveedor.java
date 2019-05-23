@@ -14,16 +14,16 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
-import com.dataconection.DataConnectionUser;
+import com.dataconection.DataConnectionCrud;
 import com.domain.Usuario;
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
 
-public class crearUsuario extends JDialog {
+public class CrearProveedor extends JDialog {
 
-	private static DataConnectionUser mc = new DataConnectionUser();
+	private static DataConnectionCrud mc = new DataConnectionCrud();
 	private JPanel contentPane;
 	boolean crea;
 	Usuario a;
@@ -36,7 +36,7 @@ public class crearUsuario extends JDialog {
 	/**
 	 * Create the frame.
 	 */
-	public crearUsuario(final boolean crea, Usuario a) {
+	public CrearProveedor(final boolean crea, Usuario a) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\David7Garcia\\Desktop\\ProyectoISW1-Maestro_Final\\Imagenes\\usuario.jpg"));
 		setModal(true);
 		this.crea=crea;

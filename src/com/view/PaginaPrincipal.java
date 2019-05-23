@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.domain.ClienteFrecuente;
+
 import javax.swing.JLabel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -21,15 +23,17 @@ import javax.swing.ImageIcon;
 import java.awt.Font;
 import java.awt.Toolkit;
 
-public class paginaPrincipal extends JFrame {
+public class PaginaPrincipal extends JFrame {
 
 	private JPanel contentPane;
 	final ConsultaUsuario Usuario = new ConsultaUsuario();
+	final ConsultaCliente Cliente = new ConsultaCliente();
+	final ConsultaProveedor Proveedor = new ConsultaProveedor();
 	
 	/**
 	 * Create the frame.
 	 */
-	public paginaPrincipal()  {
+	public PaginaPrincipal()  {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\David7Garcia\\Desktop\\ProyectoISW1-Maestro_Final\\Imagenes\\usuario.jpg"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 799, 504);
@@ -54,7 +58,7 @@ public class paginaPrincipal extends JFrame {
 		btnCliente.setIcon(new ImageIcon("C:\\Users\\David7Garcia\\Desktop\\ProyectoISW1-Maestro_Final\\Imagenes\\cliente2.jpg"));
 		btnCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Usuario.setVisible(true);
+				Cliente.setVisible(true);
 				dispose();	
 			}
 		});
@@ -64,7 +68,7 @@ public class paginaPrincipal extends JFrame {
 		btnProveedor.setIcon(new ImageIcon("C:\\Users\\David7Garcia\\Desktop\\ProyectoISW1-Maestro_Final\\Imagenes\\Porveedor.jpg"));
 		btnProveedor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Usuario.setVisible(true);
+				Proveedor.setVisible(true);
 				dispose();
 			}
 		});

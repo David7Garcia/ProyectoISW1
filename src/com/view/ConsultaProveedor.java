@@ -19,16 +19,17 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import com.dataconection.DataConnectionCrud;
+import com.domain.Proveedor;
 import com.domain.Usuario;
 import java.awt.Color;
 import java.awt.Toolkit;
 import javax.swing.JLabel;
 
-public class ConsultaUsuario extends JFrame {
+public class ConsultaProveedor extends JFrame {
 
 	private JPanel contentPane;
-	private JTable tableUsr;
-	private ArrayList<Usuario> Usuarios;
+	private JTable tablePrv;
+	private ArrayList<Proveedor> Proveedor;
 	private static DataConnectionCrud mc = new DataConnectionCrud();
 
 	/**
@@ -50,7 +51,7 @@ public class ConsultaUsuario extends JFrame {
 	/**
 	 * Crea el frame.
 	 */
-	public ConsultaUsuario() {
+	public ConsultaProveedor() {
 		
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\David7Garcia\\Desktop\\ProyectoISW1-Maestro_Final\\usuario.jpg"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -75,7 +76,7 @@ public class ConsultaUsuario extends JFrame {
 		btnCrear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					CrearUsuario ca = new CrearUsuario(true, null);
+					CrearProveedor ca = new CrearProveedor(true, null);
 					ca.setVisible(true);
 					//
 					actualizaLista();
@@ -95,7 +96,7 @@ public class ConsultaUsuario extends JFrame {
 			}
 		});
 		
-		JLabel lblUsuariosExistentes = new JLabel("Usuarios Existentes");
+		JLabel lblUsuariosExistentes = new JLabel("Proveedores Existentes");
 		lblUsuariosExistentes.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
@@ -103,21 +104,21 @@ public class ConsultaUsuario extends JFrame {
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(button)
-								.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 748, Short.MAX_VALUE))
-							.addContainerGap())
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(85)
-							.addComponent(btnCrear, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, 217, Short.MAX_VALUE)
-							.addComponent(btnModificar, GroupLayout.PREFERRED_SIZE, 191, GroupLayout.PREFERRED_SIZE)
-							.addGap(81))))
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(274)
-					.addComponent(lblUsuariosExistentes)
-					.addContainerGap(286, Short.MAX_VALUE))
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+							.addGroup(gl_contentPane.createSequentialGroup()
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+									.addComponent(button)
+									.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 748, Short.MAX_VALUE))
+								.addContainerGap())
+							.addGroup(gl_contentPane.createSequentialGroup()
+								.addGap(85)
+								.addComponent(btnCrear, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED, 217, Short.MAX_VALUE)
+								.addComponent(btnModificar, GroupLayout.PREFERRED_SIZE, 191, GroupLayout.PREFERRED_SIZE)
+								.addGap(81)))
+						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+							.addComponent(lblUsuariosExistentes)
+							.addGap(252))))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
@@ -135,19 +136,19 @@ public class ConsultaUsuario extends JFrame {
 		);
 		
 		
-		tableUsr = new JTable();
-		tableUsr.setModel(new DefaultTableModel(
+		tablePrv = new JTable();
+		tablePrv.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
-				"Id", "Nombre", "Cargo","Documento", "Objecte"
+				"Nit", "Nombre", "Contacto","Direccion","telefono", "Objecte"
 			}
 		));
-		scrollPane.setViewportView(tableUsr);
+		scrollPane.setViewportView(tablePrv);
 		contentPane.setLayout(gl_contentPane);
-		tableUsr.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 25));
-		tableUsr.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		tableUsr.removeColumn(tableUsr.getColumn("Objecte"));
+		tablePrv.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 25));
+		tablePrv.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		tablePrv.removeColumn(tablePrv.getColumn("Objecte"));
 		try {
 			actualizaLista();
 		} catch (Exception e) {
@@ -156,19 +157,20 @@ public class ConsultaUsuario extends JFrame {
 	}
 
 	void actualizaLista() throws SQLException{
-		Usuarios=mc.retornaUsuario();
+		Proveedor=mc.retornaProveedor();
 		
-		DefaultTableModel modelo = (DefaultTableModel)tableUsr.getModel();
+		DefaultTableModel modelo = (DefaultTableModel)tablePrv.getModel();
 		while (modelo.getRowCount() > 0) modelo.removeRow(0);
 		int numCols = modelo.getColumnCount();
-		for (Usuario usr : Usuarios) {
+		for (Proveedor Prv : Proveedor) {
 			Object [] fila = new Object[numCols]; // Hay cuatro columnas en la tabla
 			
-			fila[0] = usr.getId();
-			fila[1] = usr.getNombre();
-			fila[2] = usr.getCargo();
-			fila[3] = usr.getDocumentoIdentificacion();
-			fila[4] = usr;
+			fila[0] = Prv.getId();
+			fila[1] = Prv.getNombre();
+			fila[2] = Prv.getContacto();
+			fila[3] = Prv.getDireccion();
+			fila[4] = Prv.getTelefono();
+			fila[5] = Prv;
 			
 			modelo.addRow(fila);
 				
@@ -178,7 +180,7 @@ public class ConsultaUsuario extends JFrame {
 	void elimina() throws SQLException{
 		int resposta = JOptionPane.showConfirmDialog(null, "Seguro que quieres eliminar?", "Eliminar", JOptionPane.YES_NO_OPTION);
 		if (resposta == JOptionPane.YES_OPTION) {
-			Usuario user = (Usuario)tableUsr.getModel().getValueAt(tableUsr.getSelectedRow(), 4);
+			Usuario user = (Usuario)tablePrv.getModel().getValueAt(tablePrv.getSelectedRow(), 4);
 			mc.eliminaUsuario(user.getDocumentoIdentificacion());
 		}
 		actualizaLista();

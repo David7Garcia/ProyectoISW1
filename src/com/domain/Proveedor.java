@@ -13,9 +13,8 @@ public class Proveedor {
 	public String getId() {
 		return id;
 	}
-	public Proveedor(String id, int nit, String nombre, String contacto, String direccion, int telefono) {
+	public Proveedor(int nit, String nombre, String contacto, String direccion, int telefono) {
 		super();
-		this.id = id;
 		this.nit = nit;
 		this.nombre = nombre;
 		this.contacto = contacto;

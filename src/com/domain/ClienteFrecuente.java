@@ -23,7 +23,7 @@ public class ClienteFrecuente {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public int getDocumentoDeIdentidad(int i) {
+	public int getDocumentoDeIdentidad() {
 		return documentoDeIdentidad;
 	}
 	public void setDocumentoDeIdentidad(int i) {
@@ -38,44 +38,4 @@ public class ClienteFrecuente {
 	public void setPuntos(int puntos) {
 	this.puntos = puntos;
 	}
-
-	
-	// Metodo imprimir
-
-		public String ImprimirCliente() {
-			return "Producto [nombre= "+ nombre+ " documento identidad= " + documentoDeIdentidad+" puntos= "+ puntos + "]";
-		}
-		
-		
-		
-		//lista de cliente frecuente
-		public ArrayList<ClienteFrecuente> listaClienteFrecuente = new ArrayList<ClienteFrecuente>();
-		
-		//get and set array list
-			public ArrayList<ClienteFrecuente> getListaClienteFrecuente() {
-			return listaClienteFrecuente;
-		}
-
-			
-		public void setListaUsuario(ArrayList<ClienteFrecuente> listaCliente) {
-			this.listaClienteFrecuente = listaCliente;
-		}
-
-
-		
-			//	Ingresar cliente frecuente a la lista
-			public void ingresarCliente(ClienteFrecuente listaCliente){
-				
-				listaClienteFrecuente.add(listaCliente);
-			}
-
-			// Eliminar cliente frecuente a la lista
-			public void retirarCliente(ClienteFrecuente listaCliente) {
-				
-				listaClienteFrecuente.remove(listaCliente);
-			}
-
-
-
-
 }

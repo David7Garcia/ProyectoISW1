@@ -19,16 +19,17 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import com.dataconection.DataConnectionCrud;
+import com.domain.ClienteFrecuente;
 import com.domain.Usuario;
 import java.awt.Color;
 import java.awt.Toolkit;
 import javax.swing.JLabel;
 
-public class ConsultaUsuario extends JFrame {
+public class ConsultaCliente extends JFrame {
 
 	private JPanel contentPane;
-	private JTable tableUsr;
-	private ArrayList<Usuario> Usuarios;
+	private JTable tableCli;
+	private ArrayList<ClienteFrecuente> Cliente;
 	private static DataConnectionCrud mc = new DataConnectionCrud();
 
 	/**
@@ -50,7 +51,7 @@ public class ConsultaUsuario extends JFrame {
 	/**
 	 * Crea el frame.
 	 */
-	public ConsultaUsuario() {
+	public ConsultaCliente() {
 		
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\David7Garcia\\Desktop\\ProyectoISW1-Maestro_Final\\usuario.jpg"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -59,7 +60,7 @@ public class ConsultaUsuario extends JFrame {
 		contentPane.setBackground(new Color(51, 204, 153));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		final ModificarUsuario Modificar = new ModificarUsuario();
+		final ModificarCliente Modificar = new ModificarCliente();
 		JButton btnModificar = new JButton("Modificar");
 		btnModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -75,7 +76,7 @@ public class ConsultaUsuario extends JFrame {
 		btnCrear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					CrearUsuario ca = new CrearUsuario(true, null);
+					CrearCliente ca = new CrearCliente(true, null);
 					ca.setVisible(true);
 					//
 					actualizaLista();
@@ -95,8 +96,8 @@ public class ConsultaUsuario extends JFrame {
 			}
 		});
 		
-		JLabel lblUsuariosExistentes = new JLabel("Usuarios Existentes");
-		lblUsuariosExistentes.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		JLabel lblClintesExistentes = new JLabel("Clientes Existentes");
+		lblClintesExistentes.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -116,7 +117,7 @@ public class ConsultaUsuario extends JFrame {
 							.addGap(81))))
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(274)
-					.addComponent(lblUsuariosExistentes)
+					.addComponent(lblClintesExistentes)
 					.addContainerGap(286, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
@@ -124,7 +125,7 @@ public class ConsultaUsuario extends JFrame {
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addComponent(button)
 					.addGap(37)
-					.addComponent(lblUsuariosExistentes)
+					.addComponent(lblClintesExistentes)
 					.addGap(29)
 					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 172, GroupLayout.PREFERRED_SIZE)
 					.addGap(44)
@@ -135,19 +136,19 @@ public class ConsultaUsuario extends JFrame {
 		);
 		
 		
-		tableUsr = new JTable();
-		tableUsr.setModel(new DefaultTableModel(
+		tableCli = new JTable();
+		tableCli.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
-				"Id", "Nombre", "Cargo","Documento", "Objecte"
+				 "Nombre","Documento", "Objecte"
 			}
 		));
-		scrollPane.setViewportView(tableUsr);
+		scrollPane.setViewportView(tableCli);
 		contentPane.setLayout(gl_contentPane);
-		tableUsr.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 25));
-		tableUsr.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		tableUsr.removeColumn(tableUsr.getColumn("Objecte"));
+		tableCli.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 25));
+		tableCli.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		tableCli.removeColumn(tableCli.getColumn("Objecte"));
 		try {
 			actualizaLista();
 		} catch (Exception e) {
@@ -156,19 +157,17 @@ public class ConsultaUsuario extends JFrame {
 	}
 
 	void actualizaLista() throws SQLException{
-		Usuarios=mc.retornaUsuario();
+		Cliente =mc.retornaCliente();
 		
-		DefaultTableModel modelo = (DefaultTableModel)tableUsr.getModel();
+		DefaultTableModel modelo = (DefaultTableModel)tableCli.getModel();
 		while (modelo.getRowCount() > 0) modelo.removeRow(0);
 		int numCols = modelo.getColumnCount();
-		for (Usuario usr : Usuarios) {
+		for (ClienteFrecuente cliente : Cliente) {
 			Object [] fila = new Object[numCols]; // Hay cuatro columnas en la tabla
 			
-			fila[0] = usr.getId();
-			fila[1] = usr.getNombre();
-			fila[2] = usr.getCargo();
-			fila[3] = usr.getDocumentoIdentificacion();
-			fila[4] = usr;
+			fila[0] = cliente.getNombre();
+			fila[1] = cliente.getDocumentoDeIdentidad();
+			
 			
 			modelo.addRow(fila);
 				
@@ -178,8 +177,8 @@ public class ConsultaUsuario extends JFrame {
 	void elimina() throws SQLException{
 		int resposta = JOptionPane.showConfirmDialog(null, "Seguro que quieres eliminar?", "Eliminar", JOptionPane.YES_NO_OPTION);
 		if (resposta == JOptionPane.YES_OPTION) {
-			Usuario user = (Usuario)tableUsr.getModel().getValueAt(tableUsr.getSelectedRow(), 4);
-			mc.eliminaUsuario(user.getDocumentoIdentificacion());
+			ClienteFrecuente user = (ClienteFrecuente)tableCli.getModel().getValueAt(tableCli.getSelectedRow(), 4);
+			mc.eliminaUsuario(user.getDocumentoDeIdentidad());
 		}
 		actualizaLista();
 	}

@@ -27,7 +27,7 @@ public class Login extends JFrame {
 	private JPanel contentPane;
 	public static JTextField txt_usuario;
 	public static JPasswordField txt_contraseña;
-	final paginaPrincipal paginaPrincipal = new paginaPrincipal();
+	final PaginaPrincipal paginaPrincipal = new PaginaPrincipal();
 
 	/**
 	 * Create the frame.
@@ -60,7 +60,7 @@ public class Login extends JFrame {
 
 			public void actionPerformed(ActionEvent e) {
 				try {
-				PreparedStatement ps = DataConnectionUser.con.prepareStatement("Select * from Usuario where Nombre='"+txt_usuario.getText()+"'and Contraseña='"+txt_contraseña.getText()+"'");
+				PreparedStatement ps = DataConnectionCrud.con.prepareStatement("Select * from Usuario where Nombre='"+txt_usuario.getText()+"'and Contraseña='"+txt_contraseña.getText()+"'");
 				ResultSet rs = ps.executeQuery();
 				if(rs.next()){
 					JOptionPane.showMessageDialog(null, "!!Bienvenido!!");

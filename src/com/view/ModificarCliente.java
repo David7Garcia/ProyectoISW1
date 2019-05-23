@@ -25,22 +25,21 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 import com.dataconection.DataConnectionCrud;
+import com.domain.ClienteFrecuente;
 import com.domain.Usuario;
 
-public class ModificarUsuario extends JFrame {
+public class ModificarCliente extends JFrame {
 
 	private JPanel contentPane;
-	private JTable tableUsr;
-	private ArrayList<Usuario> Usuarios;
+	private JTable tableCli;
+	private ArrayList<ClienteFrecuente> cliente;
 	
 	private static DataConnectionCrud mc = new DataConnectionCrud();
 	
 	
 	
 	private JTextField txtDocumentoIdentidad;
-	private JTextField txtIdnuevo;
 	private JTextField txtNombreNuevo;
-	private JTextField txtCargoNuevo;
 
 	/**
 	 * lanza la interfaz.
@@ -49,7 +48,7 @@ public class ModificarUsuario extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ModificarUsuario frame = new ModificarUsuario();
+					ModificarCliente frame = new ModificarCliente();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -61,7 +60,7 @@ public class ModificarUsuario extends JFrame {
 	/**
 	 * Crea el frame.
 	 */
-	public ModificarUsuario() {
+	public ModificarCliente() {
 		setBackground(new Color(51, 204, 153));
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\David7Garcia\\Desktop\\ProyectoISW1-Maestro_Final\\Imagenes\\usuario.jpg"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -120,32 +119,18 @@ public class ModificarUsuario extends JFrame {
 		txtDocumentoIdentidad.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		txtDocumentoIdentidad.setColumns(10);
 		
-		txtIdnuevo = new JTextField();
-		txtIdnuevo.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		txtIdnuevo.setColumns(10);
-		
 		txtNombreNuevo = new JTextField();
 		txtNombreNuevo.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		txtNombreNuevo.setColumns(10);
 		
-		txtCargoNuevo = new JTextField();
-		txtCargoNuevo.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		txtCargoNuevo.setColumns(10);
-		
-		JLabel lblNuevoId = new JLabel("Nuevo Id");
-		lblNuevoId.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		
 		JLabel lblNuevoNombre = new JLabel("Nuevo Nombre");
 		lblNuevoNombre.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		
-		JLabel lblNuevoCargo = new JLabel("Nuevo Cargo");
-		lblNuevoCargo.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		
 		JButton btnAtras = new JButton("<-- Atras");
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			dispose();
-			new ConsultaUsuario().setVisible(true);
+			new ConsultaCliente().setVisible(true);
 			}
 		});
 		btnAtras.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -164,33 +149,22 @@ public class ModificarUsuario extends JFrame {
 							.addComponent(txtDocumentoIdentidad, GroupLayout.PREFERRED_SIZE, 203, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap(226, Short.MAX_VALUE))
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-								.addComponent(lblNuevoId, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(txtIdnuevo, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE))
-							.addPreferredGap(ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblNuevoNombre)
-								.addComponent(txtNombreNuevo, GroupLayout.PREFERRED_SIZE, 138, GroupLayout.PREFERRED_SIZE))
-							.addGap(33)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(txtCargoNuevo, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblNuevoCargo))
-							.addGap(115))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(btnModificar, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, 265, Short.MAX_VALUE)))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnEliminar, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE)
-					.addGap(74))
-				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(17)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnAtras, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
-						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 738, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(16, Short.MAX_VALUE))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addComponent(txtNombreNuevo, GroupLayout.PREFERRED_SIZE, 138, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblNuevoNombre))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnModificar, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, 238, Short.MAX_VALUE)
+							.addComponent(btnEliminar, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE)
+							.addGap(74))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addComponent(btnAtras, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
+								.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 738, GroupLayout.PREFERRED_SIZE))
+							.addContainerGap(16, Short.MAX_VALUE))))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
@@ -208,15 +182,9 @@ public class ModificarUsuario extends JFrame {
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(7)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblNuevoCargo)
-								.addComponent(lblNuevoId)
-								.addComponent(lblNuevoNombre))
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(txtCargoNuevo, GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-								.addComponent(txtIdnuevo, 0, 30, Short.MAX_VALUE)
-								.addComponent(txtNombreNuevo, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
+							.addComponent(lblNuevoNombre)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(txtNombreNuevo, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
 							.addGap(37)
 							.addComponent(btnModificar, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_contentPane.createSequentialGroup()
@@ -226,19 +194,19 @@ public class ModificarUsuario extends JFrame {
 		);
 		
 		
-		tableUsr = new JTable();
-		tableUsr.setModel(new DefaultTableModel(
+		tableCli = new JTable();
+		tableCli.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
-				"Id", "Nombre", "Cargo","Documento", "Objecte"
+				 "Nombre","Documento", "Objecte"
 			}
 		));
-		tableUsr.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 20));
-		tableUsr.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		scrollPane.setViewportView(tableUsr);
+		tableCli.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 20));
+		tableCli.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		scrollPane.setViewportView(tableCli);
 		contentPane.setLayout(gl_contentPane);
-		tableUsr.removeColumn(tableUsr.getColumn("Objecte"));
+		tableCli.removeColumn(tableCli.getColumn("Objecte"));
 		try {
 			actualizaLista();
 		} catch (Exception e) {
@@ -247,19 +215,17 @@ public class ModificarUsuario extends JFrame {
 	}
 
 	void actualizaLista() throws SQLException{
-		Usuarios=mc.retornaUsuarioM(Integer.parseInt(txtDocumentoIdentidad.getText()) );
+		cliente = mc.retornaClienteM(Integer.parseInt(txtDocumentoIdentidad.getText()) );
 		
-		DefaultTableModel modelo = (DefaultTableModel)tableUsr.getModel();
+		DefaultTableModel modelo = (DefaultTableModel)tableCli.getModel();
 		while (modelo.getRowCount() > 0) modelo.removeRow(0);
 		int numCols = modelo.getColumnCount();
-		for (Usuario usr : Usuarios) {
+		for (ClienteFrecuente Cli : cliente) {
 			Object [] fila = new Object[numCols]; // Hay cuatro columnas en la tabla
 			
-			fila[0] = usr.getId();
-			fila[1] = usr.getNombre();
-			fila[2] = usr.getCargo();
-			fila[3] = usr.getDocumentoIdentificacion();
-			fila[4] = usr;
+			fila[0] = Cli.getNombre();
+			fila[1] = Cli.getDocumentoDeIdentidad();
+			fila[2] = Cli;
 			
 			modelo.addRow(fila);
 			
@@ -267,14 +233,14 @@ public class ModificarUsuario extends JFrame {
 	}
 	
 	void modificar() throws SQLException{
-		mc.editaUsuario(Integer.parseInt(txtIdnuevo.getText()),txtNombreNuevo.getText(),txtCargoNuevo.getText(),Integer.parseInt(txtDocumentoIdentidad.getText()));
+		mc.editaCliente(txtNombreNuevo.getText(),Integer.parseInt(txtDocumentoIdentidad.getText()));
 		actualizaLista();
 						
 		}
 	void elimina() throws SQLException{
 		int respueta = JOptionPane.showConfirmDialog(null, "Seguro que quieres eliminar?", "Eliminar", JOptionPane.YES_NO_OPTION);
 		if (respueta == JOptionPane.YES_OPTION) {
-			mc.eliminaUsuario((Integer.parseInt(txtDocumentoIdentidad.getText())));
+			mc.eliminaCliente((Integer.parseInt(txtDocumentoIdentidad.getText())));
 			
 		}
 		
