@@ -19,6 +19,7 @@ import com.domain.Usuario;
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.ImageIcon;
+import java.awt.Toolkit;
 
 public class crearUsuario extends JDialog {
 
@@ -36,6 +37,7 @@ public class crearUsuario extends JDialog {
 	 * Create the frame.
 	 */
 	public crearUsuario(final boolean crea, Usuario a) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\David7Garcia\\Desktop\\ProyectoISW1-Maestro_Final\\Imagenes\\usuario.jpg"));
 		setModal(true);
 		this.crea=crea;
 		this.a=a;

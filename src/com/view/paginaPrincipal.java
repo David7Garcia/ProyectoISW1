@@ -19,6 +19,7 @@ import java.awt.Color;
 
 import javax.swing.ImageIcon;
 import java.awt.Font;
+import java.awt.Toolkit;
 
 public class paginaPrincipal extends JFrame {
 
@@ -29,6 +30,7 @@ public class paginaPrincipal extends JFrame {
 	 * Create the frame.
 	 */
 	public paginaPrincipal()  {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\David7Garcia\\Desktop\\ProyectoISW1-Maestro_Final\\Imagenes\\usuario.jpg"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 799, 504);
 		contentPane = new JPanel();

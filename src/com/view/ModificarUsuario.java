@@ -63,7 +63,7 @@ public class ModificarUsuario extends JFrame {
 	 */
 	public ModificarUsuario() {
 		setBackground(new Color(51, 204, 153));
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\David7Garcia\\Desktop\\ProyectoISW1-Maestro_Final\\fondo.jpg"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\David7Garcia\\Desktop\\ProyectoISW1-Maestro_Final\\Imagenes\\usuario.jpg"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 799, 499);
 		contentPane = new JPanel();
