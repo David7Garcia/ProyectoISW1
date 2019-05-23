@@ -19,6 +19,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import com.dataconection.DataConnectionCrud;
+import com.domain.ClienteFrecuente;
 import com.domain.Proveedor;
 import com.domain.Usuario;
 import java.awt.Color;
@@ -60,7 +61,7 @@ public class ConsultaProveedor extends JFrame {
 		contentPane.setBackground(new Color(51, 204, 153));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		final ModificarUsuario Modificar = new ModificarUsuario();
+		final ModificarProveedor Modificar = new ModificarProveedor();
 		JButton btnModificar = new JButton("Modificar");
 		btnModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -141,7 +142,7 @@ public class ConsultaProveedor extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"Nit", "Nombre", "Contacto","Direccion","telefono", "Objecte"
+				"Nit", "Nombre", "Correo","Direccion","telefono", "Objecte"
 			}
 		));
 		scrollPane.setViewportView(tablePrv);
@@ -157,7 +158,7 @@ public class ConsultaProveedor extends JFrame {
 	}
 
 	void actualizaLista() throws SQLException{
-		Proveedor=mc.retornaProveedor();
+		Proveedor =mc.retornaProveedor();
 		
 		DefaultTableModel modelo = (DefaultTableModel)tablePrv.getModel();
 		while (modelo.getRowCount() > 0) modelo.removeRow(0);
@@ -165,23 +166,23 @@ public class ConsultaProveedor extends JFrame {
 		for (Proveedor Prv : Proveedor) {
 			Object [] fila = new Object[numCols]; // Hay cuatro columnas en la tabla
 			
-			fila[0] = Prv.getId();
+			fila[0] = Prv.getNit();
 			fila[1] = Prv.getNombre();
-			fila[2] = Prv.getContacto();
+			fila[2] = Prv.getCorreo();
 			fila[3] = Prv.getDireccion();
 			fila[4] = Prv.getTelefono();
-			fila[5] = Prv;
 			
 			modelo.addRow(fila);
 				
 		}
 	}
 	
+	
 	void elimina() throws SQLException{
 		int resposta = JOptionPane.showConfirmDialog(null, "Seguro que quieres eliminar?", "Eliminar", JOptionPane.YES_NO_OPTION);
 		if (resposta == JOptionPane.YES_OPTION) {
-			Usuario user = (Usuario)tablePrv.getModel().getValueAt(tablePrv.getSelectedRow(), 4);
-			mc.eliminaUsuario(user.getDocumentoIdentificacion());
+			Proveedor user = (Proveedor)tablePrv.getModel().getValueAt(tablePrv.getSelectedRow(), 4);
+			mc.eliminaUsuario(user.getNit());
 		}
 		actualizaLista();
 	}

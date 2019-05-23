@@ -157,26 +157,28 @@ public class DataConnectionCrud {
 		JOptionPane.showMessageDialog(null, "Cliente eliminado Exitosamente");
 	}
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
 	public ArrayList<Proveedor> retornaProveedor() throws SQLException{
 		ArrayList<Proveedor> lsp = new ArrayList<Proveedor>();
-		PreparedStatement ps = con.prepareStatement("SELECT * FROM Proveedor ORDER BY NumeroRegistro");
+		PreparedStatement ps = con.prepareStatement("SELECT * FROM proveedor");
 		ResultSet rs = ps.executeQuery();
 		while(rs.next()){
-			Proveedor a = new Proveedor(rs.getInt("nit"),rs.getString("Nombre"),rs.getString("Contacto"),rs.getString("Direccion"), rs.getInt("Telefono"));
+			Proveedor a = new Proveedor(rs.getInt("Nit"), rs.getString("Nombre"), rs.getString("Correo"), rs.getString("Direccion"), rs.getInt("Telefono"));
+			
 			lsp.add(a);
 		}
 		rs.close();
 		return lsp;
-	}
+	}		
 	 
 	
-	public ArrayList<Proveedor> retornaProveedorM(Integer DocumentoIdentidad) throws SQLException{
+	public ArrayList<Proveedor> retornaProveedorM(Integer Nit) throws SQLException{
 		ArrayList<Proveedor> ls = new ArrayList<Proveedor>();
-		PreparedStatement ps = con.prepareStatement("CALL consulta_Proveedor(?)");
-		ps.setInt(1, DocumentoIdentidad);
+		PreparedStatement ps = con.prepareStatement("CALL consulta_proveedor(?)");
+		ps.setInt(1, Nit);
 		ResultSet rs = ps.executeQuery();
 		while(rs.next()){
-			Proveedor a = new Proveedor(rs.getInt("nit"),rs.getString("Nombre"),rs.getString("Contacto"),rs.getString("Direccion"), rs.getInt("Telefono"));
+			Proveedor a = new Proveedor(rs.getInt("Nit"), rs.getString("Nombre"), rs.getString("Correo"), rs.getString("Direccion"), rs.getInt("Telefono"));
 			
 			ls.add(a);
 		}
@@ -184,34 +186,37 @@ public class DataConnectionCrud {
 		return ls;
 	}
 
-	public void insertaProveedor(int nit,String Nombre,String Contacto,String Direccion, int Telefono) throws SQLException {
-		String Insert = "CALL ingresar_Proveedor(?,?,?,?,?)";
+	public void insertaProveedor(int Nit,String Nombre,String Correo,String Direccion, long Telefono) throws SQLException {
+		String Insert = "CALL insertar_proveedor(?,?,?,?,?)";
 		PreparedStatement ps = con.prepareStatement(Insert);
-		ps.setInt(1, nit);
+		ps.setInt(1, Nit);
 		ps.setString(2, Nombre);
-		ps.setString(3, Contacto);
+		ps.setString(3, Correo);
+		ps.setString(4, Direccion);
+		ps.setLong(5, Telefono);
+		ps.executeUpdate();
+		JOptionPane.showMessageDialog(null, "Proveedor Guardado con Exito");
+	
+	}
+	
+	
+	public void editaProveedor(int Nit ,String Nombre,String Correo,String Direccion, int Telefono ) throws SQLException {
+		JOptionPane.showMessageDialog(null, "Modificacion Realizada Con Exito");
+		String Update = "CALL update_Provedor(?,?,?,?,?)";
+		PreparedStatement ps = con.prepareStatement(Update);
+		ps.setInt(1, Nit);
+		ps.setString(2, Nombre);
+		ps.setString(3, Correo);
 		ps.setString(4, Direccion);
 		ps.setInt(5, Telefono);
 		
 		ps.executeUpdate();
-		JOptionPane.showMessageDialog(null, "Cliente Guardado con Exito");
-	}
-	public void editaProveedor(String Nombre,String Contacto,String Direccion, int Telefono ) throws SQLException {
-		JOptionPane.showMessageDialog(null, "Modificacion Realizada Con Exito");
-		String Update = "CALL update_usuario(?,?,?,?)";
-		PreparedStatement ps = con.prepareStatement(Update);
-		ps.setString(1, Nombre);
-		ps.setString(2, Contacto);
-		ps.setString(3, Direccion);
-		ps.setInt(4, Telefono);
-		
-		ps.executeUpdate();
 	}
 	
-	public void eliminaProveedor(int documentoIdentidad) throws SQLException {
-		String seleccio = "CALL delete_cliente(?)";
+	public void eliminaProveedor(int Nit) throws SQLException {
+		String seleccio = "CALL delete_proveedor(?)";
 		PreparedStatement ps = con.prepareStatement(seleccio);
-		ps.setInt(1, documentoIdentidad);
+		ps.setInt(1, Nit);
 		ps.executeUpdate();
 		JOptionPane.showMessageDialog(null, "Cliente eliminado Exitosamente");
 	}

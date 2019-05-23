@@ -1,32 +1,26 @@
 package com.domain;
 public class Proveedor {
 	
-	String id;
 	int nit;
 	String nombre;
-	String contacto;
+	String correo;
 	String direccion;
 	int telefono;
 	
 	
-	//constructor
-	public String getId() {
-		return id;
-	}
-	public Proveedor(int nit, String nombre, String contacto, String direccion, int telefono) {
+	
+	public Proveedor(int nit, String nombre, String correo, String direccion, int telefono) {
 		super();
 		this.nit = nit;
 		this.nombre = nombre;
-		this.contacto = contacto;
+		this.correo = correo;
 		this.direccion = direccion;
 		this.telefono = telefono;
 	}
 	
 	//get and set
 	
-	public void setId(String id) {
-		this.id = id;
-	}
+	
 	public int getNit() {
 		return nit;
 	}
@@ -39,11 +33,11 @@ public class Proveedor {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public String getContacto() {
-		return contacto;
+	public String getCorreo() {
+		return correo;
 	}
-	public void setContacto(String contacto) {
-		this.contacto = contacto;
+	public void setCorreo(String contacto) {
+		this.correo = contacto;
 	}
 	public String getDireccion() {
 		return direccion;
@@ -58,10 +52,6 @@ public class Proveedor {
 		this.telefono = telefono;
 	}
 	
-	// Metodo imprimir
 
-	public String ImprimirCliente() {
-		return "Proveedor [id= "+ id+ " nit= " + nit+" nombre= "+ nombre+ " contacto= "+contacto+" direccion= "+direccion+" telefono= "+telefono+" ]";
-	}
 
 }
