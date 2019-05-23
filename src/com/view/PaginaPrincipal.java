@@ -29,6 +29,7 @@ public class PaginaPrincipal extends JFrame {
 	final ConsultaUsuario Usuario = new ConsultaUsuario();
 	final ConsultaCliente Cliente = new ConsultaCliente();
 	final ConsultaProveedor Proveedor = new ConsultaProveedor();
+	final ConsultaProducto Producto = new ConsultaProducto();
 	
 	/**
 	 * Create the frame.
@@ -78,7 +79,7 @@ public class PaginaPrincipal extends JFrame {
 		btnInventario.setIcon(new ImageIcon("C:\\Users\\David7Garcia\\Desktop\\ProyectoISW1-Maestro_Final\\Imagenes\\Inventario.jpg"));
 		btnInventario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			
+			Producto.setVisible(true);
 				dispose();
 			}
 		});
@@ -94,16 +95,16 @@ public class PaginaPrincipal extends JFrame {
 		JLabel lblPaginaPrincipal = new JLabel("Gestion de Servicios");
 		lblPaginaPrincipal.setFont(new Font("Tahoma", Font.PLAIN, 27));
 		
-		JLabel lblUsuario = new JLabel("Usuario");
+		JLabel lblUsuario = new JLabel("Usuarios");
 		lblUsuario.setFont(new Font("Arial", Font.PLAIN, 20));
 		
-		JLabel lblCliente = new JLabel("Cliente\r\n");
+		JLabel lblCliente = new JLabel("Cliente\r\ns");
 		lblCliente.setFont(new Font("Arial", Font.PLAIN, 20));
 		
 		JLabel lblProveedor = new JLabel("Proveedor\r\n");
 		lblProveedor.setFont(new Font("Arial", Font.PLAIN, 20));
 		
-		JLabel lblInventario = new JLabel("Inventario");
+		JLabel lblInventario = new JLabel("Productos");
 		lblInventario.setFont(new Font("Arial", Font.PLAIN, 20));
 		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);

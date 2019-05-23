@@ -1,28 +1,24 @@
 package com.domain;
 public class Producto {
 
-	String id;
+	int id;
 	String nombre;
-	Float precio;
-	int version;
-	Float valorImpuesto;
+	int precio;
 	
 	//constructor
 	
-	public Producto(String id, String nombre, Float precio, int version, Float valorImpuesto) {
+	public Producto(int id, String nombre, int precio) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.precio = precio;
-		this.version = version;
-		this.valorImpuesto = valorImpuesto;
 	}
 
 	// metodos get and set
-	public String getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public String getNombre() {
@@ -31,30 +27,12 @@ public class Producto {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public Float getPrecio() {
-		return (float) precio;
+	public int getPrecio() {
+		return  precio;
 	}
-	public void setPrecio(float i) {
+	public void setPrecio(int i) {
 		this.precio = i;
 	}
-	public int getVersion() {
-		return version;
-	}
-	public void setVersion(int version) {
-		this.version = version;
-	}
-	public Float getValorImpuesto() {
-		return valorImpuesto;
-	}
-	public void setValorImpuesto(Float valorImpuesto) {
-		this.valorImpuesto = valorImpuesto;
-	}
-	
-	// Metodo imprimir
-	public String ImprimirProducto() {
-		return "Producto [id= "+id+" nombre= "+ nombre+ " precio= " + precio+" version= "+ version + "valor impuesto=" + valorImpuesto +  "]";
-	}
-
 
 
 }

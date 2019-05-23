@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import com.domain.ClienteFrecuente;
+import com.domain.Producto;
 import com.domain.Proveedor;
 import com.domain.Usuario;
 
@@ -220,6 +221,66 @@ public class DataConnectionCrud {
 		ps.executeUpdate();
 		JOptionPane.showMessageDialog(null, "Cliente eliminado Exitosamente");
 	}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	public ArrayList<Producto> retornaProducto() throws SQLException{
+		ArrayList<Producto> lsp = new ArrayList<Producto>();
+		PreparedStatement ps = con.prepareStatement("SELECT * FROM producto");
+		ResultSet rs = ps.executeQuery();
+		while(rs.next()){
+			Producto a = new Producto(rs.getInt("Id"),rs.getString("Nombre"), rs.getInt("Precio"));
+			lsp.add(a);
+		}
+		rs.close();
+		return lsp;
+	}		
+	 
+	
+	public ArrayList<Producto> retornaProductoM(Integer Nit) throws SQLException{
+		ArrayList<Producto> ls = new ArrayList<Producto>();
+		PreparedStatement ps = con.prepareStatement("CALL consulta_producto(?)");
+		ps.setInt(1, Nit);
+		ResultSet rs = ps.executeQuery();
+		while(rs.next()){
+			Producto a = new Producto(rs.getInt("Id"), rs.getString("Nombre"), rs.getInt("Precio"));
+			
+			ls.add(a);
+		}
+		rs.close();
+		return ls;
+	}
+
+	public void insertaProducto(int id,String Nombre,int precio) throws SQLException {
+		String Insert = "CALL insert_producto(?,?,?)";
+		PreparedStatement ps = con.prepareStatement(Insert);
+		ps.setInt(1, id);
+		ps.setString(2, Nombre);
+		ps.setInt(3, precio);
+		ps.executeUpdate();
+		JOptionPane.showMessageDialog(null, "Producto Guardado con Exito");
+	
+	}
+	
+	
+	public void editaProducto(int Nit ,String Nombre, int precio ) throws SQLException {
+		JOptionPane.showMessageDialog(null, "Modificacion Realizada Con Exito");
+		String Update = "CALL Update_producto(?,?,?)";
+		PreparedStatement ps = con.prepareStatement(Update);
+		ps.setInt(1, Nit);
+		ps.setString(2, Nombre);
+		ps.setInt(3, precio);
+		
+		ps.executeUpdate();
+	}
+	
+	public void eliminaProducto(int Nit) throws SQLException {
+		String seleccio = "CALL delete_producto(?)";
+		PreparedStatement ps = con.prepareStatement(seleccio);
+		ps.setInt(1, Nit);
+		ps.executeUpdate();
+		JOptionPane.showMessageDialog(null, "Producto eliminado Exitosamente");
+	}
+
 
 
 	
