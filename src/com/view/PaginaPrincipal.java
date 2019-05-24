@@ -30,7 +30,7 @@ public class PaginaPrincipal extends JFrame {
 	final ConsultaCliente Cliente = new ConsultaCliente();
 	final ConsultaProveedor Proveedor = new ConsultaProveedor();
 	final ConsultaProducto Producto = new ConsultaProducto();
-	
+	final Factura Factura = new Factura();
 	/**
 	 * Create the frame.
 	 */
@@ -88,7 +88,7 @@ public class PaginaPrincipal extends JFrame {
 		btnVentas.setFont(new Font("Tahoma", Font.PLAIN, 40));
 		btnVentas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Usuario.setVisible(true);
+				Factura.setVisible(true);
 				dispose();
 			}
 		});
